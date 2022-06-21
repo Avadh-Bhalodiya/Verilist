@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+from pytz import timezone
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api',
+    'send_mail_app',
 ]
 
 MIDDLEWARE = [
@@ -119,4 +122,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
 STATIC_URL = '/static/'
+
+
+# CELERY Settings
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+accept_content = ['application/json']
+result_serializer = 'json'
+task_serializer = 'json'
+timezone = 'Asia/Kolkata'
+
+# CELERY_RESULT_BACKEND = 'django-db'
+
+# SMPT Settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'avadhbhalodiya1999@gmail.com'
+EMAIL_HOST_PASSWORD = 'xgyembckphgxcyob'
+DEFAULT_FROM_EMAIL = 'Celery <avadhbhalodiya1999@gmail.com>'
