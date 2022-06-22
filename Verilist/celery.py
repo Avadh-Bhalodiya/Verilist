@@ -5,7 +5,7 @@ from django.conf import settings
 from celery.schedules import crontab
 # from django_celery_beat.models import PeriodicTask
 
-app = Celery('tasks', broker='pyamqp://http://127.0.0.1:8000/')
+app = Celery('tasks', broker='redis://127.0.0.1:6379/') #
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Verilist.settings')
 
@@ -27,6 +27,6 @@ app.conf.beat_schedule = {
 
 app.autodiscover_tasks()
 
-@app.task(bind=True)
-def debug_task(self):
-    print(f'Request: {self.request!r}')
+# @app.task(bind=True)
+# def debug_task(self):
+#     print(f'Request: {self.request!r}')
